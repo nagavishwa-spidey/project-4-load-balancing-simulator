@@ -1,0 +1,22 @@
+{
+  "name": "cloud-load-balancing-simulator",
+  "version": "1.0.0",
+  "description": "An interactive, browser-based simulator that visualizes how different load balancing algorithms distribute incoming requests across multiple servers.",
+  "main": "index.html",
+  "scripts": {
+    "test": "jest --verbose",
+    "test:coverage": "jest --coverage --verbose"
+  },
+  "keywords": [
+    "cloud-computing",
+    "load-balancing",
+    "simulator",
+    "visualization",
+    "algorithms"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

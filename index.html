@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloud Load Balancing Simulator</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-container">
+      <div class="logo">
+        <span class="logo-icon">⚖️</span>
+        <h1>Cloud Load Balancing Simulator</h1>
+      </div>
+      <p class="tagline">Interactive High-Availability & Traffic Distribution Visualizer</p>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <!-- Controls Toolbar -->
+    <section class="controls-card">
+      <div class="control-row">
+        <div class="control-item">
+          <label for="algorithm-select">Routing Strategy</label>
+          <select id="algorithm-select">
+            <option value="round-robin">Round Robin</option>
+            <option value="least-connections">Least Connections</option>
+            <option value="weighted-round-robin">Weighted Round Robin</option>
+            <option value="random">Random Distribution</option>
+            <option value="ip-hash">IP Hash (Consistent)</option>
+          </select>
+        </div>
+
+        <div class="control-item">
+          <label for="server-count">Servers: <span id="server-count-val">4</span></label>
+          <input type="range" id="server-count" min="2" max="8" value="4">
+        </div>
+
+        <div class="control-item">
+          <label for="request-rate">Traffic Rate: <span id="request-rate-val">5 req/s</span></label>
+          <input type="range" id="request-rate" min="1" max="20" value="5">
+        </div>
+
+        <div class="control-buttons">
+          <button id="start-btn" class="btn btn-primary">Start Simulation</button>
+          <button id="send-one-btn" class="btn btn-secondary">Send 1 Request</button>
+          <button id="reset-btn" class="btn btn-danger">Reset</button>
+          <button id="compare-btn" class="btn btn-accent">Compare Algorithms</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Visual Stage -->
+    <section class="stage-container">
+      <div class="stage-grid">
+        <!-- Client / Traffic Source Column -->
+        <div class="stage-column source-column">
+          <h3>Traffic Stream</h3>
+          <div class="client-source">
+            <div class="client-icon">🌐</div>
+            <p>Clients / Ingress</p>
+          </div>
+          <div class="request-queue-container">
+            <h4>Recent Ingress Log</h4>
+            <div id="request-queue" class="request-queue"></div>
+          </div>
+        </div>
+
+        <!-- Center Visualization & LB Node -->
+        <div class="stage-column center-column" id="visualization-area">
+          <h3>Load Balancer Cluster</h3>
+          <div id="lb-node" class="lb-node">
+            <div class="lb-icon">🔀</div>
+            <div class="lb-title">Cloud Load Balancer</div>
+            <div class="lb-algorithm">Round Robin</div>
+            <div class="lb-pulse"></div>
+          </div>
+          <p class="stage-hint">Click any server to toggle health (failover simulation)</p>
+        </div>
+
+        <!-- Server Pool Grid Column -->
+        <div class="stage-column server-column">
+          <h3>Server Pool (Backend Instances)</h3>
+          <div id="server-grid" class="server-grid"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comparison Results (Conditional) -->
+    <section id="comparison-results" class="comparison-card" style="display: none;"></section>
+
+    <!-- Statistics & Charts Section -->
+    <section class="dashboard-grid">
+      <div class="stats-card">
+        <h3>Cluster Metrics</h3>
+        <div class="metrics-summary" id="stats-panel">
+          <div class="metric-box">
+            <span class="label">Total Routed</span>
+            <span class="value" id="stat-total-requests">0</span>
+          </div>
+          <div class="metric-box">
+            <span class="label">Active Algorithm</span>
+            <span class="value" id="stat-algorithm">Round Robin</span>
+          </div>
+          <div class="metric-box">
+            <span class="label">Healthy Instances</span>
+            <span class="value" id="stat-server-count">4/4</span>
+          </div>
+          <div class="metric-box">
+            <span class="label">Average Latency</span>
+            <span class="value" id="stat-avg-response">0ms</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <canvas id="chart-distribution" width="360" height="200"></canvas>
+      </div>
+
+      <div class="chart-card">
+        <canvas id="chart-response-time" width="360" height="200"></canvas>
+      </div>
+
+      <div class="chart-card">
+        <canvas id="chart-load" width="360" height="200"></canvas>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>Cloud Load Balancing Simulator &bull; Static Single Page Application &bull; High Availability & Fault Tolerance</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/algorithms/roundRobin.js"></script>
+  <script src="js/algorithms/leastConnections.js"></script>
+  <script src="js/algorithms/weightedRoundRobin.js"></script>
+  <script src="js/algorithms/random.js"></script>
+  <script src="js/algorithms/ipHash.js"></script>
+
+  <script src="js/models/Server.js"></script>
+  <script src="js/models/Request.js"></script>
+  <script src="js/models/LoadBalancer.js"></script>
+
+  <script src="js/utils/helpers.js"></script>
+  <script src="js/utils/statistics.js"></script>
+
+  <script src="js/visualization/renderer.js"></script>
+  <script src="js/visualization/charts.js"></script>
+  <script src="js/visualization/animator.js"></script>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+/**
+ * Keyframe Animations for Cloud Load Balancing Simulator
+ */
+
+.request-dot {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s;
+  top: 50%;
+  left: 10%;
+  transform: translate(-50%, -50%);
+}
+
+.request-dot.to-lb {
+  transform: translate(240px, -50%);
+}
+
+.request-dot.to-server {
+  transform: translate(460px, -50%);
+}
+
+.request-dot.fade-out {
+  opacity: 0;
+}
+
+@keyframes pulse-node {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.lb-node.pulse {
+  animation: pulse-node 0.4s ease-in-out;
+}
+
+@keyframes receiving-flash {
+  0% { background: rgba(0, 255, 136, 0.2); }
+  100% { background: var(--bg-dark); }
+}
+
+.server-card.receiving {
+  animation: receiving-flash 0.3s ease-out;
+}
+
+@keyframes shake-overloaded {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+.server-card.overloaded {
+  animation: shake-overloaded 0.3s ease-in-out infinite;
+}
