@@ -261,7 +261,7 @@ Calculates a hash digest from the incoming client IP address modulo the active s
 ## 14. Verified Live Website URL
 
 - **GitHub Repository:** https://github.com/nagavishwa-spidey/project-4-load-balancing-simulator
-- **Live Deployment URL:** _To be updated after cloud provider deployment verification_
+- **Live Deployment URL:** https://nagavishwa-spidey.github.io/project-4-load-balancing-simulator/
 
 ---
 
